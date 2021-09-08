@@ -1,8 +1,10 @@
 import React from 'react';
 import { Header } from '../../components/Header';
-import web3Provider from '../../../utils/blockchain/Web3Provider';
+import { contracts } from '../../../utils/blockchain/contract.testnet';
+import { getWeb3Contract } from '../../../utils/blockchain/contract-helpers';
 export function Dashboard() {
-    console.log('web3prvider:', web3Provider);
+    var bankerContract = getWeb3Contract(contracts.banker.address, contracts.banker.abi);
+    console.log('bankerContract :', bankerContract.methods);
     return(
         <>
             <Header/>
