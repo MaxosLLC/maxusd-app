@@ -6,6 +6,8 @@ function App() {
     <BrowserRouter>
       <Switch>
         <Route exact path="/" component={Dashboard}/>
+        <Route exact path="/dashboard" component={Dashboard}/>
+
       </Switch>
     </BrowserRouter>
   );
