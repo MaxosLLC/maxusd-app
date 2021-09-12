@@ -26,8 +26,45 @@ const BoardBody = styled.div`
 const BoardList = styled.div`
   flex: 1;
   border-width: 1px 0 0;
+  margin-top: 1rem;
 `;
-var config = {
+const MainTitleContainer = styled.div`
+  width: 50%;
+  display: flex;
+  flex: 1;
+  flex-direction: row;
+  justify-content: space-between;
+`;
+const InsuranceTitleContainer = styled.div`
+  width: 50%;
+  padding-left: 10px;
+  display: flex;
+  flex: 1;
+  flex-direction: row;
+  justify-content: space-between;
+`;
+const MainTitle = styled.div`
+  font-size: 1.5rem;
+  font-weight: 900;
+  color: white;
+`;
+const Divider = styled.div`
+  width: 50%;
+  height: 2px;
+  background-color: #fff;
+`;
+const SubTitle = styled.div`
+  font-size: 0.8rem;
+  font-weight: 300;
+  color: white;
+`;
+const InsuranceTitle = styled.div`
+  font-size: 0.8rem;
+  font-weight: 300;
+  color: white;
+`;
+
+var configAssets = {
     chart: {
         plotBackgroundColor: null,
         plotBorderWidth: null,
@@ -62,7 +99,6 @@ var config = {
         data: [{
             name: 'Chrome',
             y: 61.41,
-            sliced: true,
             selected: true
         }, {
             name: 'Internet Explorer',
@@ -91,6 +127,101 @@ var config = {
         }]
     }]
 };
+var configMaxUSD = {
+    chart: {
+        plotBackgroundColor: null,
+        plotBorderWidth: null,
+        plotShadow: false,
+        type: 'pie',
+        backgroundColor: '#121318'
+    },
+    title: {
+        text: ''
+    },
+    tooltip: {
+        pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+    },
+    accessibility: {
+        point: {
+            valueSuffix: '%'
+        }
+    },
+    plotOptions: {
+        pie: {
+            allowPointSelect: true,
+            cursor: 'pointer',
+            dataLabels: {
+                enabled: true,
+                format: '<b>{point.name}</b>: {point.percentage:.1f} %'
+            }
+        }
+    },
+    series: [{
+        name: 'Brands',
+        colorByPoint: true,
+        data: [{
+            name: 'Floating MaxUSD',
+            y: 80.0,
+            selected: true
+        }, {
+            name: 'Insurance reserve',
+            y: 12.5
+        }, {
+            name: 'Staked MaxUSD',
+            y: 7.5
+        }]
+    }]
+};
+var configInsurance = {
+    chart: {
+        type: 'bar',
+        backgroundColor: '#121318'
+    },
+    title: {
+        text: ''
+    },
+    xAxis: {
+        categories: ['Insured deposits', 'Insurance total', 'Insurance used', 'Leverage ratio'],
+        title: {
+            text: null
+        },
+        labels: {
+            enabled: true,
+            style: {
+              color: 'rgba(235, 235, 245, 0.3)',
+              fontSize: '16px'
+            }
+        },
+    },
+    yAxis: {
+        min: 0,
+        labels: {
+            enabled: true,
+            style: {
+              color: 'rgba(235, 235, 245, 0.3)',
+              fontSize: '16px'
+            }
+          },
+    },
+    tooltip: {
+        valueSuffix: ' millions'
+    },
+    plotOptions: {
+        bar: {
+            dataLabels: {
+                enabled: true
+            }
+        }
+    },
+    credits: {
+        enabled: false
+    },
+    series: [{
+        name: '',
+        showInLegend: false,
+        data: [2000000, 150000, 20000, 10000]
+    }]
+}
 export function Dashboard() {
     var bankerContract = getWeb3Contract(contracts.banker.address, contracts.banker.abi);
     console.log('bankerContract :', bankerContract.methods);
@@ -102,17 +233,98 @@ export function Dashboard() {
                     <BoardList>
                         <Card className="main-card">
                             <Card className="sub-card">
-                                <Card.Header>
-                                    <Card.Title>
-                                        Assets
-                                    </Card.Title>
+                                <Card.Header >
+                                    <MainTitleContainer >
+                                        <MainTitle>Assets</MainTitle>
+                                        <MainTitle>$20,000,000</MainTitle>
+                                    </MainTitleContainer>
+                                    <MainTitleContainer >
+                                        <SubTitle>Mult-chain yield generating strategies</SubTitle>
+                                    </MainTitleContainer>
                                 </Card.Header>
                                 <Card.Body>
-                                  <HighchartsReact highcharts={Highcharts} options={config} containerProps={{ style: { width: '100%' } }} />
+                                  <HighchartsReact highcharts={Highcharts} options={configAssets} containerProps={{ style: { width: '100%' } }} />
+                                  <MainTitleContainer>
+                                        <SubTitle>Assets</SubTitle>
+                                        <SubTitle>$20,000,000</SubTitle>
+                                  </MainTitleContainer>
                                 </Card.Body>
                             </Card>
+                            <Card className="sub-card">
+                                <Card.Header >
+                                    <MainTitleContainer >
+                                        <MainTitle>Liabilities</MainTitle>
+                                        <MainTitle>$20,000,000</MainTitle>
+                                    </MainTitleContainer>
+                                    <MainTitleContainer >
+                                        <SubTitle>Total issued MaxUSD</SubTitle>
+                                    </MainTitleContainer>
+                                </Card.Header>
+                                <Card.Body>
+                                  <HighchartsReact highcharts={Highcharts} options={configMaxUSD} containerProps={{ style: { width: '100%' } }} />
+                                  <MainTitleContainer>
+                                        <SubTitle>Floating MaxUSD</SubTitle>
+                                        <SubTitle>$16,000,000</SubTitle>
+                                  </MainTitleContainer>
+                                  <MainTitleContainer>
+                                        <SubTitle>Insurance</SubTitle>
+                                  </MainTitleContainer>
+                                  <Divider />
+                                  <InsuranceTitleContainer>
+                                        <InsuranceTitle>Staked MaxUSD</InsuranceTitle>
+                                        <InsuranceTitle>$1,500,000</InsuranceTitle>
+                                  </InsuranceTitleContainer>
+                                  <InsuranceTitleContainer>
+                                        <InsuranceTitle>Insurance reserve</InsuranceTitle>
+                                        <InsuranceTitle>$2,500,000</InsuranceTitle>
+                                  </InsuranceTitleContainer>
+                                </Card.Body>
+                            </Card>                            
                         </Card>
                     </BoardList>
+                    <BoardList>
+                        <Card className="main-card">
+                            <Card className="sub-card">
+                                <Card.Header >
+                                    <MainTitleContainer >
+                                        <MainTitle>Assets</MainTitle>
+                                        <MainTitle>$20,000,000</MainTitle>
+                                    </MainTitleContainer>
+                                    <MainTitleContainer >
+                                        <SubTitle>Mult-chain yield generating strategies</SubTitle>
+                                    </MainTitleContainer>
+
+                                </Card.Header>
+                                <Card.Body>
+                                  <HighchartsReact highcharts={Highcharts} options={configAssets} containerProps={{ style: { width: '100%' } }} />
+                                  <MainTitleContainer>
+                                        <SubTitle>Assets</SubTitle>
+                                        <SubTitle>$20,000,000</SubTitle>
+
+                                  </MainTitleContainer>
+                                </Card.Body>
+                            </Card>
+                            <Card className="sub-card">
+                                <Card.Header >
+                                    <MainTitleContainer >
+                                        <MainTitle>Liabilities</MainTitle>
+                                        <MainTitle>$20,000,000</MainTitle>
+                                    </MainTitleContainer>
+                                    <MainTitleContainer >
+                                        <SubTitle>Total issued MaxUSD</SubTitle>
+                                    </MainTitleContainer>
+
+                                </Card.Header>
+                                <Card.Body>
+                                  <HighchartsReact highcharts={Highcharts} options={configInsurance} containerProps={{ style: { width: '100%' } }} />
+                                  <MainTitleContainer>
+                                        <SubTitle>Liabilities</SubTitle>
+                                        <SubTitle>$20,000,000</SubTitle>
+                                  </MainTitleContainer>
+                                </Card.Body>
+                            </Card>                            
+                        </Card>
+                    </BoardList>                    
                 </BoardBody>
             </BoardContainer>
         </>

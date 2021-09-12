@@ -6,5 +6,18 @@
 }
 .sub-card {
     width: 50%;
+    margin-left: 1%;
     background-color: rgb(29, 29, 37)!important;
+}
+.card-header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+.card-body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
 }
