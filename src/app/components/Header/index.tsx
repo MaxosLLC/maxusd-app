@@ -3,8 +3,7 @@ import { Navbar,Container, Nav  } from 'react-bootstrap';
 export function Header() {
     return (
         <>
-            {/* <header> */}
-            <Navbar bg="light" expand="lg">
+            <Navbar bg="dark" expand="lg">
                 <Container>
                     <Navbar.Brand href="#">Maxos</Navbar.Brand>
                     <Navbar.Toggle aria-controls="basic-navbar-nav" />
@@ -16,7 +15,6 @@ export function Header() {
                     </Navbar.Collapse>
                 </Container>
             </Navbar>
-            {/* </header> */}
         </>
     )
 }

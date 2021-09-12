@@ -1,0 +1,10 @@
+.main-card {
+    border-radius: 8px!important; 
+    display: flex!important;
+    flex-direction: row!important;
+    background-color: #121318!important;
+}
+.sub-card {
+    width: 50%;
+    background-color: rgb(29, 29, 37)!important;
+}
