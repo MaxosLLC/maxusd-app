@@ -223,7 +223,7 @@ export function Dashboard() {
         const setting1 = await bankerContract.methods.strategySettings(strate1).call();//connected banker contract
         const setting2 = await bankerContract.methods.strategySettings(strate2).call();//Value is 0
         console.log('settings:', setting1, setting2);
-    } 
+    }
     useEffect(()=> {
         getStrategies();
     })
