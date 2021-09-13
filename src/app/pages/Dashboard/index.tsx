@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { Header } from '../../components/Header';
 import { contracts } from '../../../utils/blockchain/contract.testnet';
 import { getWeb3Contract } from '../../../utils/blockchain/contract-helpers';
