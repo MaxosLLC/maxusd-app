@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Header } from '../../components/Header';
 import { contracts } from '../../../utils/blockchain/contract.testnet';
 import { getWeb3Contract } from '../../../utils/blockchain/contract-helpers';
@@ -34,6 +34,7 @@ const MainTitleContainer = styled.div`
   flex: 1;
   flex-direction: row;
   justify-content: space-between;
+  margin-top: 10px;
 `;
 const InsuranceTitleContainer = styled.div`
   width: 50%;
@@ -54,9 +55,10 @@ const Divider = styled.div`
   background-color: #fff;
 `;
 const SubTitle = styled.div`
-  font-size: 0.8rem;
+  font-size: 1rem;
   font-weight: 300;
   color: white;
+  font-family: Arial, Helvetica, sans-serif;
 `;
 const InsuranceTitle = styled.div`
   font-size: 0.8rem;
@@ -93,37 +95,24 @@ var configAssets = {
             }
         }
     },
+    credits: {
+        enabled: false
+    },
     series: [{
         name: 'Brands',
         colorByPoint: true,
         data: [{
-            name: 'Chrome',
-            y: 61.41,
-            selected: true
+            name: 'Treasury',
+            y: 10
         }, {
-            name: 'Internet Explorer',
-            y: 11.84
+            name: 'Yearn USDC',
+            y: 40
         }, {
-            name: 'Firefox',
-            y: 10.85
+            name: 'Anchor',
+            y: 30
         }, {
-            name: 'Edge',
-            y: 4.67
-        }, {
-            name: 'Safari',
-            y: 4.18
-        }, {
-            name: 'Sogou Explorer',
-            y: 1.64
-        }, {
-            name: 'Opera',
-            y: 1.6
-        }, {
-            name: 'QQ',
-            y: 1.2
-        }, {
-            name: 'Other',
-            y: 2.61
+            name: 'Leveraged Alchemix',
+            y: 20
         }]
     }]
 };
@@ -155,6 +144,9 @@ var configMaxUSD = {
                 format: '<b>{point.name}</b>: {point.percentage:.1f} %'
             }
         }
+    },
+    credits: {
+        enabled: false
     },
     series: [{
         name: 'Brands',
@@ -224,7 +216,17 @@ var configInsurance = {
 }
 export function Dashboard() {
     var bankerContract = getWeb3Contract(contracts.banker.address, contracts.banker.abi);
-    console.log('bankerContract :', bankerContract.methods);
+    // const [strategies, setStrategy] = useState([]);
+    const getStrategies = async () => {
+        const strate1 = await bankerContract.methods.strategies(0).call();
+        const strate2 = await bankerContract.methods.strategies(1).call();
+        const setting1 = await bankerContract.methods.strategySettings(strate1).call();//connected banker contract
+        const setting2 = await bankerContract.methods.strategySettings(strate2).call();//Value is 0
+        console.log('settings:', setting1, setting2);
+    } 
+    useEffect(()=> {
+        getStrategies();
+    })
     return(
         <>
             <Header/>
@@ -245,9 +247,22 @@ export function Dashboard() {
                                 <Card.Body>
                                   <HighchartsReact highcharts={Highcharts} options={configAssets} containerProps={{ style: { width: '100%' } }} />
                                   <MainTitleContainer>
-                                        <SubTitle>Assets</SubTitle>
-                                        <SubTitle>$20,000,000</SubTitle>
+                                        <SubTitle>Treasury</SubTitle>
+                                        <SubTitle>$1,000,000</SubTitle>
                                   </MainTitleContainer>
+                                  <MainTitleContainer>
+                                        <SubTitle>Yearn USDC</SubTitle>
+                                        <SubTitle>$4,000,000</SubTitle>
+                                  </MainTitleContainer>
+                                  <MainTitleContainer>
+                                        <SubTitle>Anchor</SubTitle>
+                                        <SubTitle>$3,000,000</SubTitle>
+                                  </MainTitleContainer>
+                                  <MainTitleContainer>
+                                        <SubTitle>Leveraged Alchemix</SubTitle>
+                                        <SubTitle>$2,000,000</SubTitle>
+                                  </MainTitleContainer>
+
                                 </Card.Body>
                             </Card>
                             <Card className="sub-card">
@@ -318,8 +333,24 @@ export function Dashboard() {
                                 <Card.Body>
                                   <HighchartsReact highcharts={Highcharts} options={configInsurance} containerProps={{ style: { width: '100%' } }} />
                                   <MainTitleContainer>
-                                        <SubTitle>Liabilities</SubTitle>
-                                        <SubTitle>$20,000,000</SubTitle>
+                                        <SubTitle>Insured deposits</SubTitle>
+                                        <SubTitle>$16,000,000</SubTitle>
+                                        <SubTitle>0%</SubTitle>
+                                  </MainTitleContainer>
+                                  <MainTitleContainer>
+                                        <SubTitle>Insurance total</SubTitle>
+                                        <SubTitle>$4,000,000</SubTitle>
+                                        <SubTitle>25%</SubTitle>
+                                  </MainTitleContainer>
+                                  <MainTitleContainer>
+                                        <SubTitle>Insured used</SubTitle>
+                                        <SubTitle>$2,700,00</SubTitle>
+                                        <SubTitle>67.5%</SubTitle>
+                                  </MainTitleContainer>
+                                  <MainTitleContainer>
+                                        <SubTitle>Insured deposits</SubTitle>
+                                        <SubTitle>$0</SubTitle>
+                                        <SubTitle>12.5%</SubTitle>
                                   </MainTitleContainer>
                                 </Card.Body>
                             </Card>                            

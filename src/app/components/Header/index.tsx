@@ -5,7 +5,7 @@ export function Header() {
         <>
             <Navbar bg="dark" expand="lg">
                 <Container>
-                    <Navbar.Brand href="#">Maxos</Navbar.Brand>
+                    <Navbar.Brand href="#"><img src="https://assets.website-files.com/60994c647265c8170c7f6576/609d518beea2436b274cf1c7_Maxos_Logo-White.svg" loading="eager" width="126" alt="" className="logo-nav"/></Navbar.Brand>
                     <Navbar.Toggle aria-controls="basic-navbar-nav" />
                     <Navbar.Collapse id="basic-navbar-nav">
                     <Nav className="me-auto">
