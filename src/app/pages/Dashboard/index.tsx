@@ -2,40 +2,13 @@ import React, { useEffect } from 'react';
 import { Header } from '../../components/Header';
 import { contracts } from '../../../utils/blockchain/contract.testnet';
 import { getWeb3Contract } from '../../../utils/blockchain/contract-helpers';
+import { MainTitleContainer, MainTitle, SubTitle, Divider, PageContainer, PageBody, PageList } from '../../components/Container';
 import styled from 'styled-components';
 import { Card } from 'react-bootstrap';
 import Highcharts from 'highcharts';
 import HighchartsReact from 'highcharts-react-official';
 import './index.css'; 
-const BoardContainer = styled.div`
-  text-align: center;
-  display: flex;
-  flex-direction: column;
-  position: relative;
-  background-color: #121318;
-`;
-const BoardBody = styled.div`
-  display: flex;
-  flex: 1;
-  flex-direction: column;
-  padding: 20px 40px 20px;
-  @media screen and (max-width: 768px) {
-    padding: 20px 20px 20px;
-  }
-`
-const BoardList = styled.div`
-  flex: 1;
-  border-width: 1px 0 0;
-  margin-top: 1rem;
-`;
-const MainTitleContainer = styled.div`
-  width: 50%;
-  display: flex;
-  flex: 1;
-  flex-direction: row;
-  justify-content: space-between;
-  margin-top: 10px;
-`;
+
 const InsuranceTitleContainer = styled.div`
   width: 50%;
   padding-left: 10px;
@@ -44,22 +17,7 @@ const InsuranceTitleContainer = styled.div`
   flex-direction: row;
   justify-content: space-between;
 `;
-const MainTitle = styled.div`
-  font-size: 1.5rem;
-  font-weight: 900;
-  color: white;
-`;
-const Divider = styled.div`
-  width: 50%;
-  height: 2px;
-  background-color: #fff;
-`;
-const SubTitle = styled.div`
-  font-size: 1rem;
-  font-weight: 300;
-  color: white;
-  font-family: Arial, Helvetica, sans-serif;
-`;
+
 const InsuranceTitle = styled.div`
   font-size: 0.8rem;
   font-weight: 300;
@@ -243,9 +201,9 @@ export function Dashboard() {
     return(
         <>
             <Header/>
-            <BoardContainer>
-                <BoardBody>
-                    <BoardList>
+            <PageContainer>
+                <PageBody>
+                    <PageList>
                         <Card className="main-card">
                             <Card className="sub-card">
                                 <Card.Header >
@@ -254,7 +212,7 @@ export function Dashboard() {
                                         <MainTitle>$20,000,000</MainTitle>
                                     </MainTitleContainer>
                                     <MainTitleContainer >
-                                        <SubTitle>Mult-chain yield generating strategies</SubTitle>
+                                        <SubTitle>Multi-chain yield generating strategies</SubTitle>
                                     </MainTitleContainer>
                                 </Card.Header>
                                 <Card.Body>
@@ -309,8 +267,8 @@ export function Dashboard() {
                                 </Card.Body>
                             </Card>                            
                         </Card>
-                    </BoardList>
-                    <BoardList>
+                    </PageList>
+                    <PageList>
                         <Card className="main-card">
                             <Card className="sub-card">
                                 <Card.Header >
@@ -368,9 +326,9 @@ export function Dashboard() {
                                 </Card.Body>
                             </Card>                            
                         </Card>
-                    </BoardList>                    
-                </BoardBody>
-            </BoardContainer>
+                    </PageList>                    
+                </PageBody>
+            </PageContainer>
         </>
     );
 }

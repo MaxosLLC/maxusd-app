@@ -11,6 +11,8 @@ export function Header() {
                     <Nav className="me-auto">
                         <Nav.Link href="dashboard">Dashboard</Nav.Link>
                         <Nav.Link href="assets">Assets</Nav.Link>
+                        <Nav.Link href="settings">Settings</Nav.Link>
+
                     </Nav>
                     </Navbar.Collapse>
                 </Container>

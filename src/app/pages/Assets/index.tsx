@@ -1,34 +1,15 @@
 import React from 'react';
-import styled from 'styled-components';
 import { Header } from '../../components/Header';
 import { Card } from 'react-bootstrap';
 import { TableHeader, TableBody } from '../../components/Table';
-const AssetsContainer = styled.div`
-  text-align: center;
-  display: flex;
-  flex-direction: column;
-  position: relative;
-  background-color: #121318;
-`
-const AssetsList = styled.div`
-  flex: 1;
-`
-const AssetsBody = styled.div`
-  display: flex;
-  flex: 1;
-  flex-direction: column;
-  padding: 20px 40px 20px;
-  @media screen and (max-width: 768px) {
-    padding: 20px 20px 20px;
-  }
-`
+import { PageContainer, PageBody, PageList } from '../../components/Container';
 export function Assets() {
     return(
         <>
             <Header/>
-            <AssetsContainer>
-                <AssetsBody>
-                    <AssetsList>
+            <PageContainer>
+                <PageBody>
+                    <PageList>
                         <Card>
                             <Card.Body style={{ backgroundColor: '#1D1D25' }}>
                                 <TableHeader>
@@ -63,9 +44,9 @@ export function Assets() {
                                 </TableBody>                                  
                               </Card.Body>
                         </Card>
-                    </AssetsList>
-                </AssetsBody>
-            </AssetsContainer>
+                    </PageList>
+                </PageBody>
+            </PageContainer>
         </>
     );
 }
