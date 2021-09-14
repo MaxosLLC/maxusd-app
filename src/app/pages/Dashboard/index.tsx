@@ -72,13 +72,20 @@ var configAssets = {
         plotBorderWidth: null,
         plotShadow: false,
         type: 'pie',
-        backgroundColor: '#121318'
+        backgroundColor: '#121318',
+
     },
     title: {
         text: ''
     },
     tooltip: {
-        pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+        pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>',
+        style: {
+            fontSize:'15px',
+            fontFamily: 'Times New Roman',
+            color: '#A0A0A0',
+            fill: '#fff',
+        }
     },
     accessibility: {
         point: {
@@ -91,15 +98,19 @@ var configAssets = {
             cursor: 'pointer',
             dataLabels: {
                 enabled: true,
-                format: '<b>{point.name}</b>: {point.percentage:.1f} %'
-            }
+                format: '<b>{point.name}</b>: {point.percentage:.1f} %',
+                style: {
+                    fontSize: '15px',
+                    color: '#fff',
+                }
+            },
         }
     },
     credits: {
         enabled: false
     },
     series: [{
-        name: 'Brands',
+        name: 'Percentage',
         colorByPoint: true,
         data: [{
             name: 'Treasury',
@@ -141,7 +152,12 @@ var configMaxUSD = {
             cursor: 'pointer',
             dataLabels: {
                 enabled: true,
-                format: '<b>{point.name}</b>: {point.percentage:.1f} %'
+                format: '<b>{point.name}</b>: {point.percentage:.1f} %',
+                style: {
+                    fontSize: '15px',
+                    color: '#fff',
+                }
+
             }
         }
     },
