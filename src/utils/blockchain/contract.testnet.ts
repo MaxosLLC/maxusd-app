@@ -13,7 +13,7 @@ export const contracts = {
         abi: addressManager,
     },
     banker: {
-        address: '0x4521683F54Fe27C466C49adFf1eB72edD21C00bA',
+        address: '0xAb1b8b1D51547131675e44c3606315196c62f0F3',
         abi: banker,
     },
     maxBanker: {

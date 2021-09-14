@@ -234,11 +234,8 @@ export function Dashboard() {
     var bankerContract = getWeb3Contract(contracts.banker.address, contracts.banker.abi);
     // const [strategies, setStrategy] = useState([]);
     const getStrategies = async () => {
-        const strate1 = await bankerContract.methods.strategies(0).call();
-        const strate2 = await bankerContract.methods.strategies(1).call();
-        const setting1 = await bankerContract.methods.strategySettings(strate1).call();//connected banker contract
-        const setting2 = await bankerContract.methods.strategySettings(strate2).call();//Value is 0
-        console.log('settings:', setting1, setting2);
+        const strategy = await bankerContract.methods.getAllStrategies().call();
+        console.log(strategy);
     }
     useEffect(()=> {
         getStrategies();
