@@ -1,6 +1,7 @@
 import React from 'react';
 import { Header } from '../../components/Header';
-import { MainTitleContainer, MainTitle, SubTitle, PageContainer, PageBody, PageList } from '../../components/Container';import { Card } from 'react-bootstrap';
+import { MainTitleContainer, MainTitle, SubTitle, PageContainer, PageBody, PageList } from '../../components/Container';
+import { Card } from 'react-bootstrap';
 import './index.css';
 
 export function Settings() {
