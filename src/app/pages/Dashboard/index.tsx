@@ -233,7 +233,6 @@ export function Dashboard() {
                                         <SubTitle>Leveraged Alchemix</SubTitle>
                                         <SubTitle>$2,000,000</SubTitle>
                                   </MainTitleContainer>
-
                                 </Card.Body>
                             </Card>
                             <Card className="sub-card">
@@ -299,7 +298,6 @@ export function Dashboard() {
                                     <MainTitleContainer >
                                         <SubTitle>Total issued MaxUSD</SubTitle>
                                     </MainTitleContainer>
-
                                 </Card.Header>
                                 <Card.Body>
                                   <HighchartsReact highcharts={Highcharts} options={configInsurance} containerProps={{ style: { width: '100%' } }} />
