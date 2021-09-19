@@ -7,7 +7,10 @@ import styled from 'styled-components';
 import { Card } from 'react-bootstrap';
 import Highcharts from 'highcharts';
 import HighchartsReact from 'highcharts-react-official';
+import NoDataToDisplay from 'highcharts/modules/no-data-to-display';
+
 import './index.css'; 
+NoDataToDisplay(Highcharts);
 
 const InsuranceTitleContainer = styled.div`
   width: 50%;
@@ -84,6 +87,29 @@ var configAssets = {
             y: 20
         }]
     }]
+};
+var configNoData = {
+    chart: {
+        plotBackgroundColor: null,
+        plotBorderWidth: null,
+        plotShadow: false,
+        backgroundColor: '#121318',
+    },
+    title: {
+        text: ''
+    },
+    credits: {
+        enabled: false
+    },
+    lang: {
+        noData: "No Data"
+    },
+    noData: {
+        style: {
+            fontWeight: 'bold',
+            fontSize: '4.5rem'
+        }
+    },
 };
 var configMaxUSD = {
     chart: {
@@ -270,7 +296,7 @@ export function Dashboard() {
                     <PageList>
                         <Card className="main-card">
                             <Card className="sub-card">
-                                <Card.Header >
+                                {/* <Card.Header >
                                     <MainTitleContainer >
                                         <MainTitle>Assets</MainTitle>
                                         <MainTitle>$20,000,000</MainTitle>
@@ -279,14 +305,9 @@ export function Dashboard() {
                                         <SubTitle>Mult-chain yield generating strategies</SubTitle>
                                     </MainTitleContainer>
 
-                                </Card.Header>
+                                </Card.Header> */}
                                 <Card.Body>
-                                  <HighchartsReact highcharts={Highcharts} options={configAssets} containerProps={{ style: { width: '100%' } }} />
-                                  <MainTitleContainer>
-                                        <SubTitle>Assets</SubTitle>
-                                        <SubTitle>$20,000,000</SubTitle>
-
-                                  </MainTitleContainer>
+                                  <HighchartsReact highcharts={Highcharts} options={configNoData} containerProps={{ style: { width: '100%' } }} />
                                 </Card.Body>
                             </Card>
                             <Card className="sub-card">
