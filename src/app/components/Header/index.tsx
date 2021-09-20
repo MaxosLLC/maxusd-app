@@ -1,5 +1,5 @@
 import React from 'react';
-import { Navbar,Container, Nav  } from 'react-bootstrap';
+import { Navbar,Container, Nav, Button} from 'react-bootstrap';
 export function Header() {
     return (
         <>
@@ -12,9 +12,11 @@ export function Header() {
                         <Nav.Link href="dashboard">Dashboard</Nav.Link>
                         <Nav.Link href="assets">Assets</Nav.Link>
                         <Nav.Link href="settings">Settings</Nav.Link>
-
                     </Nav>
                     </Navbar.Collapse>
+                    <Button variant="info" size="lg">
+                        Connect Wallet
+                    </Button>{' '}
                 </Container>
             </Navbar>
         </>
