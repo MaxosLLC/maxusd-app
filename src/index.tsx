@@ -3,12 +3,15 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './app';
 import reportWebVitals from './reportWebVitals';
+import store from './store/wallet.store';
+import { Provider } from 'react-redux';
+
 require('dotenv').config()
 
 ReactDOM.render(
-  <React.StrictMode>
+  <Provider store={store}>
     <App />
-  </React.StrictMode>,
+  </Provider>,
   document.getElementById('root')
 );
 
