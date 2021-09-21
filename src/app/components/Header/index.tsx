@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { Navbar,Container, Nav, Button} from 'react-bootstrap';
-import { useSelector, useDispatch } from 'react-redux'
-import WalletConnectActions from '../../../actions/wallet.actions'
+import { useSelector, useDispatch } from 'react-redux';
+import WalletConnectActions from '../../../actions/wallet.actions';
 export function Header() {
     const [connectionTried, setConnectionTried] = useState(false)
     const dispatch = useDispatch()
