@@ -2,13 +2,17 @@ import React, { useState } from 'react'
 import { Navbar,Container, Nav, Button} from 'react-bootstrap';
 import { useSelector, useDispatch } from 'react-redux';
 import WalletConnectActions from '../../../actions/wallet.actions';
+import Web3 from 'web3';
 export function Header() {
     const [connectionTried, setConnectionTried] = useState(false)
     const dispatch = useDispatch()
+    // const isConnected = useSelector((state) => state.isConnected)
+    // const account = useSelector((state) => state.ConnectWallet.account)   
     const connectMetamask = async () => {
       if (window.ethereum === undefined) {
         return;
       }
+      console.log(window.ethereum)
       await window.ethereum.enable();
       //   handle network change & disconnect here
       window.ethereum.on('chainChanged', (_chainId:any) => {
@@ -30,39 +34,34 @@ export function Header() {
           console.log('disconnected')
         }
       })
-    //   let provider = new ethers.providers.Web3Provider(window.ethereum)
-    //   let chainId = (await provider.getNetwork()).chainId
-    //   let accounts = await provider.listAccounts()
-    //   let account = accounts[0]
-    //   dispatch(WalletConnectActions.setAccount(account))
-    //   return chainId
+      let provider = new Web3(window.ethereum)
+      let chainId = await provider.eth.getChainId();
+      let accounts = await provider.eth.getAccounts();
+      let account = accounts[0];
+      console.log('chainId: ', chainId);
+      console.log('account: ', account);
+      dispatch(WalletConnectActions.setAccount(account))
+      return chainId     
     }
   
     const handleWalletConnect = async () => {
-    //   if (isConnected) {
-    //     dispatch(WalletConnectActions.setAccount(''))
-    //     dispatch(WalletConnectActions.disconnectWallet())
-    //     // handle disconnect here
-    //   } else {
-    //     // handle connect here
-    //     let chainId = await connectMetamask()
-    //     if (chainId !== DestNet.ChainID) {
-    //       console.log('not connected to Opera Network')
-    //       dispatch(WalletConnectActions.connectWallet(chainId))
-    //     } else {
-    //       console.log('connected')
-    //       dispatch(WalletConnectActions.connectWallet(chainId))
-    //     }
-    //   }
+      // if (isConnected) {
+      //   dispatch(WalletConnectActions.setAccount(''))
+      //   dispatch(WalletConnectActions.disconnectWallet())
+      //   // handle disconnect here
+      // } else {
+      //   // handle connect here
+        let chainId = await connectMetamask()
+        dispatch(WalletConnectActions.connectWallet(chainId))
+      // }
     }
   
-    if (!connectionTried) {
-      setConnectionTried(true)
-      handleWalletConnect()
-    }
+    // if (!connectionTried) {
+    //   setConnectionTried(true)
+    //   handleWalletConnect()
+    // }
   
-    // const isConnected = useSelector((state) => state.ConnectWallet.isConnected)
-    // const account = useSelector((state) => state.ConnectWallet.account)    
+ 
     return (
         <>
             <Navbar bg="dark" expand="lg">
@@ -76,7 +75,7 @@ export function Header() {
                         <Nav.Link href="settings">Settings</Nav.Link>
                     </Nav>
                     </Navbar.Collapse>
-                    <Button variant="info" size="lg">
+                    <Button variant="info" size="lg" onClick={handleWalletConnect}>
                         Connect Wallet
                     </Button>{' '}
                 </Container>

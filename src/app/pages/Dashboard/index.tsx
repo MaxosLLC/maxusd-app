@@ -34,7 +34,6 @@ var configAssets = {
         plotShadow: false,
         type: 'pie',
         backgroundColor: '#121318',
-
     },
     title: {
         text: ''
@@ -219,7 +218,6 @@ export function Dashboard() {
     // const [strategies, setStrategy] = useState([]);
     const getStrategies = async () => {
         const strategy = await bankerContract.methods.getAllStrategies().call();
-        console.log(strategy);
     }
     useEffect(()=> {
         getStrategies();
