@@ -1,10 +1,15 @@
-import React, { useState } from 'react'
+import React, { useState } from 'react';
 import { Navbar,Container, Nav, Button} from 'react-bootstrap';
+import Alert from 'react-bootstrap/Alert'
 import { useSelector, useDispatch } from 'react-redux';
 import WalletConnectActions from '../../../actions/wallet.actions';
 import Web3 from 'web3';
 export function Header() {
-    const [connectionTried, setConnectionTried] = useState(false)
+    const [connection, setConnection] = useState(false);
+    const [isChain, setCorrectChain] = useState(false);
+
+    const [metaAccount, setMetaAccount] = useState('Connect Wallet');
+    const [accountAddress, setAddress] = useState('');
     const dispatch = useDispatch()
     // const isConnected = useSelector((state) => state.isConnected)
     // const account = useSelector((state) => state.ConnectWallet.account)   
@@ -14,6 +19,10 @@ export function Header() {
       }
       console.log(window.ethereum)
       await window.ethereum.enable();
+      let provider = new Web3(window.ethereum)
+      let chainId = await provider.eth.getChainId();
+      let accounts = await provider.eth.getAccounts();
+
       //   handle network change & disconnect here
       window.ethereum.on('chainChanged', (_chainId:any) => {
         //   handle chainId change
@@ -25,6 +34,7 @@ export function Header() {
         //   handle disconnect
         dispatch(WalletConnectActions.disconnectWallet())
         dispatch(WalletConnectActions.setAccount(''))
+        setMetaAccount("Connect Wallet");
         console.log('handler for disconnection', error)
       })
       window.ethereum.on('accountsChanged', (accounts: any) => {
@@ -32,35 +42,51 @@ export function Header() {
           // handle when no account is connected
           dispatch(WalletConnectActions.disconnectWallet())
           console.log('disconnected')
+        } else {
+          let account = accounts[0];
+          setAddress(account);
+          const length = account.length;
+          setMetaAccount(account.substring(0,5)+'...'+account.substring(length-4,length));
+          dispatch(WalletConnectActions.setAccount(account))
         }
       })
+
+      // setMetaAccount(account.substr(0,6));
+      // console.log('chainId: ', chainId);
+      // console.log('account: ', account);
+      dispatch(WalletConnectActions.setAccount(accounts[0]))
+      return chainId
+    }
+  
+    const handleWalletConnect = async () => {
       let provider = new Web3(window.ethereum)
       let chainId = await provider.eth.getChainId();
       let accounts = await provider.eth.getAccounts();
       let account = accounts[0];
-      console.log('chainId: ', chainId);
-      console.log('account: ', account);
-      dispatch(WalletConnectActions.setAccount(account))
-      return chainId     
-    }
-  
-    const handleWalletConnect = async () => {
-      // if (isConnected) {
-      //   dispatch(WalletConnectActions.setAccount(''))
-      //   dispatch(WalletConnectActions.disconnectWallet())
-      //   // handle disconnect here
-      // } else {
-      //   // handle connect here
+      setCorrectChain(false);
+
+      if (connection === false) {
+        console.log(metaAccount.substring(0,5));
+        setAddress(account);
+        const length = account.length;
+        setMetaAccount(account.substring(0,5)+'...'+account.substring(length-4,length));
+        // setMetaAccount(account);
+
         let chainId = await connectMetamask()
-        dispatch(WalletConnectActions.connectWallet(chainId))
-      // }
+        dispatch(WalletConnectActions.connectWallet(chainId))  
+        setConnection(true);
+      } else {
+        setAddress('');
+        setMetaAccount("Connect Wallet");
+        setConnection(false);
+      }
     }
   
     // if (!connectionTried) {
     //   setConnectionTried(true)
     //   handleWalletConnect()
     // }
-  
+    // const closeAlert = () => setCorrectChain(!isChain);
  
     return (
         <>
@@ -76,7 +102,8 @@ export function Header() {
                     </Nav>
                     </Navbar.Collapse>
                     <Button variant="info" size="lg" onClick={handleWalletConnect}>
-                        Connect Wallet
+                      {!connection&&metaAccount}
+                      {connection&&metaAccount}
                     </Button>{' '}
                 </Container>
             </Navbar>

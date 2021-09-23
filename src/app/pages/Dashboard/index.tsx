@@ -219,7 +219,7 @@ export function Dashboard() {
     const getStrategies = async () => {
         const strategy = await bankerContract.methods.getAllStrategies().call();
     }
-    useEffect(()=> {
+    useEffect(() => {
         getStrategies();
     })
     return(
